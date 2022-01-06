@@ -55,7 +55,10 @@ export function removeItem(array, index) {
 //     updateName({ name: "Abe" }, "Barbara")
 // should give back:
 //     { name: "Barbara"}
-export function updateName(object, newName) {}
+export function updateName(object, newName) {
+    const newObject = { ...object, name: newName}
+    return newObject;
+}
 
 // Immutably update the object so that the value under the "needsACupOfTea" property becomes the opposite of what it was.
 // Any other properties in the object should be maintained.
@@ -63,7 +66,11 @@ export function updateName(object, newName) {}
 //     toggleTeaStatus({ name: "Abe", needsACupOfTea: false })
 // should give back:
 //     { name: "Abe", needsACupOfTea: true }
-export function toggleTeaStatus(object) {}
+export function toggleTeaStatus(object) {
+    const newObject = {...object};
+    newObject.needsACupOfTea = !newObject.needsACupOfTea;
+    return newObject;
+}
 
 // Combo Time!!
 
@@ -73,4 +80,20 @@ export function toggleTeaStatus(object) {}
 //    toggleListItemCompleted([{ task: "Cooking", completed: true }, { task: "Walking", completed: false }], 1)
 // should give back:
 //    [{ task: "Cooking", completed: true }, { task: "Walking", completed: true }]
-export function toggleListItemCompleted(array, index) {}
+export function toggleListItemCompleted(array, index) {
+    //Wrong Answer
+    //
+    //const newArray = [...array];
+    // console.log("I am here");
+    // console.log(newArray);
+    // newArray[index].completed = !newArray[index].completed;
+    // return newArray;
+
+    //Correct Answer
+    //Please check this in stackoverflow  
+    //https://stackoverflow.com/questions/44524121/update-array-containing-objects-using-spread-operator
+    //
+    const newArray = array.map(a => {return{...a}})
+    newArray[index].completed = !newArray[index].completed;
+    return newArray;
+}
